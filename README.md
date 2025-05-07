@@ -97,7 +97,7 @@ Eclipse ou STS
 
 6.1. Importando o Projeto
 Clone o repositório do Projeto Conta Bancária dentro da pasta do Workspace do Eclipse/STS
-git clone https://github.com/rafaelq80/farmacia_java_t82.git
+git clone https://github.com/Pablo-Casagrande/farmacia_java.git
 Abra o Eclipse/STS e selecione a pasta do Workspace onde você clonou o repositório do projeto
 No menu superior do Eclipse/STS, clique na opção: File 🡲 Import...
 Na janela Import, selecione a opção: General 🡲 Existing Projects into Workspace e clique no botão Next
