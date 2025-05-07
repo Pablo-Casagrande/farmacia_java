@@ -6,7 +6,7 @@ public interface ProdutoRepository {
 	
 	//Métodos do CRUD (Create, Read, Update e Delete)
 		public void procurarPorId(int id);
-		public void listarTodas();
+		public void listarTodos();
 		public void cadastrar(Produto Produto);
 		public void atualizar(Produto Produto);
 		public void deletar(int id);

@@ -1,33 +1,45 @@
 package farmacia_java;
 
 import java.io.IOException;
+import java.util.Optional;
 import java.util.Scanner;
 
+import farmacia_java.controller.ProdutoController;
 import farmacia_java.model.Cosmetico;
 import farmacia_java.model.Medicamento;
+import farmacia_java.model.Produto;
 import farmacia_java.util.Cores;
 
 public class Menu {
     public static void main(String[] args) {
         
         Scanner leia = new Scanner(System.in);
+        
+        ProdutoController produtos = new ProdutoController();
 		
-		int opcao;
+		int opcao, id, tipo;
+		String nome, generico, fragrancia;
+		float preco;
+		
+		
 				
 		/*Teste Modelo de dados*/
 		
-		Medicamento m1 = new Medicamento(1, "Paracetamol 750 mg", 1, 21.90f, "Paracetamol");
-		m1.visualizar();
+		Medicamento m1 = new Medicamento(produtos.gerarId(), "Paracetamol 750 mg", 1, 21.90f, "Paracetamol");
+		produtos.cadastrar(m1);
 		
-		Cosmetico c1 = new Cosmetico(2, "Sabonete Lux", 2, 2.99f, "Flores do Campo");
-		c1.visualizar();
+		
+		Cosmetico c1 = new Cosmetico(produtos.gerarId(), "Sabonete Lux", 2, 2.99f, "Flores do Campo");
+		produtos.cadastrar(c1);
+		
+		
 		
 		while(true) {
 
 			System.out.println(Cores.TEXT_YELLOW + Cores.ANSI_BLACK_BACKGROUND
 					          +"*****************************************************");
 			System.out.println("                                                     ");
-			System.out.println("                BANCO DO BRAZIL COM Z                ");
+			System.out.println("                  FARMACIA BEM ESTAR                 ");
 			System.out.println("                                                     ");
 			System.out.println("*****************************************************");
 			System.out.println("                                                     ");
@@ -53,31 +65,111 @@ public class Menu {
 			switch (opcao) {
 				case 1:
 					System.out.println(Cores.TEXT_WHITE + "Criar Produto\n\n");
-						keyPress();
-                    	break;
+   
+                    System.out.println("Digite o nome do Produto: ");
+                    leia.skip("\\R");
+                    nome = leia.nextLine();
+                     
+                    System.out.println("Digite o tipo do Produto (1 - MED | 2 - COSM: ");
+                    tipo = leia.nextInt();
+                     
+                    System.out.println("Digite o preco do Produto: ");
+                    preco = leia.nextFloat();
+                     
+                     switch(tipo) {
+                     case 1 ->{
+                    	 		System.out.println("Digite o nome genérico: ");
+                    	 		leia.skip("\\R");
+                    	 		generico = leia.nextLine();
+                    	 		produtos.cadastrar(new Medicamento(produtos.gerarId(), nome, tipo, preco, generico));
+                     		  }
+                     
+                     case 2 ->{
+                    	 System.out.println("Digite a fragrancia: ");
+             	 		leia.skip("\\R");
+             	 		fragrancia = leia.nextLine();
+             	 		produtos.cadastrar(new Cosmetico(produtos.gerarId(), nome, tipo, preco, fragrancia));
+              		  	}      
+                     }
+                     
+					keyPress();
+                    break;
+                    	
 				case 2:
 					System.out.println(Cores.TEXT_WHITE + "Listar todas as Produtos\n\n");
-						keyPress();
-                    	break;
+						produtos.listarTodos();
+					keyPress();
+                    break;
+                    	
 				case 3:
 					System.out.println(Cores.TEXT_WHITE + "Consultar dados da Produto - por número\n\n");
-						keyPress();
-                    	break;
+					
+						System.out.println("Digite o ID do Produto: ");
+	                    id = leia.nextInt();               
+	                    produtos.procurarPorId(id);
+                    
+					keyPress();
+                    break;
+                    	
 				case 4:
 					System.out.println(Cores.TEXT_WHITE + "Atualizar dados da Produto\n\n");
-						keyPress();
-                    	break;
+					
+					System.out.println("Digite o ID do Produto: ");
+                    id = leia.nextInt();
+                    
+                    Optional<Produto> produto = produtos.buscarNaCollection(id);
+
+                   
+                    if(produto.isPresent()) {
+					
+					System.out.println("Digite o nome do Produto: ");
+                    leia.skip("\\R");
+                    nome = leia.nextLine();
+                     
+                    tipo = produto.get().getTipo();
+                     
+                    System.out.println("Digite o preco do Produto: ");
+                    preco = leia.nextFloat();
+                     
+                     switch(tipo) {
+                     case 1 ->{
+                    	 		System.out.println("Digite o nome genérico: ");
+                    	 		leia.skip("\\R");
+                    	 		generico = leia.nextLine();
+                    	 		produtos.atualizar(new Medicamento(id, nome, tipo, preco, generico));
+                     		  }
+                     
+                     case 2 ->{
+                    	 System.out.println("Digite a fragrancia: ");
+             	 		leia.skip("\\R");
+             	 		fragrancia = leia.nextLine();
+             	 		produtos.atualizar(new Cosmetico(id, nome, tipo, preco, fragrancia));
+              		  	}      
+                     }
+	
+                    }else
+                    	System.out.printf("\nO Produto de ID %d nao existe!", id);
+					
+					keyPress();
+                    break;
+                    	
 				case 5:
 					System.out.println(Cores.TEXT_WHITE + "Apagar a Produto\n\n");
-						keyPress();
-                   	 	break;
+					
+					System.out.println("Digite o ID do Produto: ");
+	                id = leia.nextInt();               
+	                produtos.deletar(id);
+                    
+					keyPress();
+                   	break;
+                   	 	
 				case 6:
 					System.out.println(Cores.TEXT_WHITE + "Sair\n\n");
 						sobre();
 						leia.close();
 						System.exit(0);
 						keyPress();
-						break;
+						break;	
 				
 				default:
 					System.out.println(Cores.TEXT_RED_BOLD + "\nOpção Inválida!\n" + Cores.TEXT_RESET);
