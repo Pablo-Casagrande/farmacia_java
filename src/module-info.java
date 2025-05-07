@@ -1,8 +1,0 @@
-/**
- * 
- */
-/**
- * 
- */
-module farmacia_java {
-}
