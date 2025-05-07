@@ -3,6 +3,8 @@ package farmacia_java;
 import java.io.IOException;
 import java.util.Scanner;
 
+import farmacia_java.model.Cosmetico;
+import farmacia_java.model.Medicamento;
 import farmacia_java.util.Cores;
 
 public class Menu {
@@ -12,6 +14,14 @@ public class Menu {
 		
 		int opcao;
 				
+		/*Teste Modelo de dados*/
+		
+		Medicamento m1 = new Medicamento(1, "Paracetamol 750 mg", 1, 21.90f, "Paracetamol");
+		m1.visualizar();
+		
+		Cosmetico c1 = new Cosmetico(2, "Sabonete Lux", 2, 2.99f, "Flores do Campo");
+		c1.visualizar();
+		
 		while(true) {
 
 			System.out.println(Cores.TEXT_YELLOW + Cores.ANSI_BLACK_BACKGROUND
