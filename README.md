@@ -127,4 +127,5 @@ Compartilhar com colegas que estejam aprendendo Java!
 8. Contato
 <br />
 
-Desenvolvido por Pablo para dúvidas, sugestões ou colaborações, entre em contato via GitHub ou abra uma issue!
+Desenvolvido por [**Pablo**](https://github.com/Pablo-Casagrande)
+Para dúvidas, sugestões ou colaborações, entre em contato via GitHub ou abra uma issue!
